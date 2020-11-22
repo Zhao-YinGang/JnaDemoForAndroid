@@ -1,5 +1,6 @@
 package com.zyg.jnademo.jna.kotlin
 
+import android.util.Log
 import com.sun.jna.CallbackThreadInitializer
 import com.sun.jna.Memory
 import com.sun.jna.Native
@@ -22,6 +23,21 @@ private fun doJnaTest() {
     }
 
     jnaAssert { nativeLib.testInt(1, 2) == 1 + 2 }
+
+    jnaAssert {
+        val array = IntArray(5) { 1 }
+        nativeLib.testArrayByVal(array, array.size)
+        array.all { it == 1 }
+    }
+    jnaAssert {
+        val len = 5
+        val array = Memory(4L * len)
+        for (i in 0 until 5) {
+            array.setInt(4L * i.toLong(), 1)
+        }
+        nativeLib.testArrayByRef(array, len)
+        array.getIntArray(0, len)?.all { it == 2 } ?: false
+    }
 
     jnaAssert {
         val str = TEST_STR_IN_ANDROID

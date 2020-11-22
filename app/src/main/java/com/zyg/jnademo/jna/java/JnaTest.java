@@ -29,6 +29,31 @@ public class JnaTest {
         jnaAssert(() -> NativeLib.instance.testInt(1, 2) == 1 + 2);
 
         jnaAssert(() -> {
+            int[] array = new int[]{1, 1, 1, 1, 1};
+            NativeLib.instance.testArrayByVal(array, array.length);
+            for (int i : array) {
+                if (i != 1) {
+                    return false;
+                }
+            }
+            return true;
+        });
+        jnaAssert(() -> {
+            int len = 5;
+            Pointer array = new Memory(4L * len);
+            for (int i = 0; i < 5; ++i){
+                array.setInt(4L * i, 1);
+            }
+            NativeLib.instance.testArrayByRef(array, len);
+            for (int i : array.getIntArray(0, len)) {
+                if (i != 2) {
+                    return false;
+                }
+            }
+            return true;
+        });
+
+        jnaAssert(() -> {
             String str = TEST_STR_IN_ANDROID;
             NativeLib.instance.testStringByVal(str);
             return TEST_STR_IN_ANDROID.equals(str);

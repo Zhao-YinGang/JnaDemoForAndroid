@@ -16,14 +16,28 @@ int testInt(int a, int b) {
     return a + b;
 }
 
+void testArrayByVal(const int *array, int len) {
+    for (int i = 0; i < len; ++i) {
+        LOGI("testArrayByVal step1: array[%d]=%d\n", i, array[i]);
+    }
+}
+
+void testArrayByRef(int *array, int len) {
+    for (int i = 0; i < len; ++i) {
+        LOGI("testArrayByRef step1: array[%d]=%d\n", i, array[i]);
+        ++array[i];
+        LOGI("testArrayByRef step2: array[%d]=%d\n", i, array[i]);
+    }
+}
+
 void testStringByVal(const char *str) {
-    LOGI("testStringByVal: %s", str);
+    LOGI("testStringByVal: %s\n", str);
 }
 
 void testStringByRef(char *str, int len) {
-    LOGI("testStringByRef step 1: %s", str);
+    LOGI("testStringByRef step 1: %s\n", str);
     snprintf(str, len, "%s", TEST_STR_FROM_NATIVE);
-    LOGI("testStringByRef step 2: %s", str);
+    LOGI("testStringByRef step 2: %s\n", str);
 }
 
 void testStructByVal(const MyString *myStr) {
@@ -48,7 +62,7 @@ void testUnionByVal(const MyUnion *myUnion, int fieldNum) {
             LOGI("testUnionByVal: field2:%lf\n", myUnion->field2);
             break;
         default:
-            LOGI("testUnionByVal: fieldNum[%d] error\n", fieldNum);
+            LOGE("testUnionByVal: fieldNum[%d] error\n", fieldNum);
             break;
     }
 }
@@ -66,7 +80,7 @@ void testUnionByRef(MyUnion *myUnion, int fieldNum) {
             LOGI("testUnionByRef step2: field2:%lf\n", myUnion->field2);
             break;
         default:
-            LOGI("testUnionByRef: fieldNum[%d] error\n", fieldNum);
+            LOGE("testUnionByRef: fieldNum[%d] error\n", fieldNum);
             break;
     }
 }

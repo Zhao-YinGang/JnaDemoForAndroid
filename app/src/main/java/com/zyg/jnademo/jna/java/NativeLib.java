@@ -16,6 +16,10 @@ interface NativeLib extends Library {
 
     int testInt(int a, int b);
 
+    void testArrayByVal(int []array, int len);
+
+    void testArrayByRef(Pointer array, int len);
+
     void testStringByVal(String str);
 
     void testStringByRef(Pointer str, int len);

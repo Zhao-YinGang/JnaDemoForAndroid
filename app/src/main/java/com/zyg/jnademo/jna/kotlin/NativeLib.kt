@@ -18,15 +18,22 @@ interface NativeLib : Library {
 
     fun testInt(a: Int, b: Int): Int
 
+    fun testArrayByVal(array: IntArray, len: Int)
+
+    fun testArrayByRef(array: Pointer, len: Int)
+
     fun testStringByVal(str: String)
+
     fun testStringByRef(str: Pointer, len: Int)
 
     fun testStructByVal(myStr: MyString)
+
     fun testStructByRef(myStr: MyString)
 
     fun testCallBack(a: Int, b: Int, sum: SumCallback): Int
 
     fun testUnionByVal(myUnion: MyUnion, fieldNum: Int)
+
     fun testUnionByRef(myUnion: MyUnion, fieldNum: Int)
 }
 
