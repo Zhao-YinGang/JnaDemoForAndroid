@@ -1,12 +1,11 @@
-package com.zyg.jnademo.jna
+package com.zyg.jnademo.jna.kotlin
 
 import com.sun.jna.CallbackThreadInitializer
 import com.sun.jna.Memory
 import com.sun.jna.Native
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.withContext
-import com.zyg.jnademo.jna.NativeLib.Companion.instance as nativeLib
+import com.zyg.jnademo.jna.kotlin.NativeLib.Companion.instance as nativeLib
 
 private const val TEST_STR_IN_ANDROID = "TEST_STR_IN_ANDROID"
 private const val TEST_STR_FROM_NATIVE = "TEST_STR_FROM_NATIVE"

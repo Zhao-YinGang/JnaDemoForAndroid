@@ -1,4 +1,4 @@
-package com.zyg.jnademo.jna
+package com.zyg.jnademo.jna.kotlin
 
 import com.sun.jna.*
 import com.sun.jna.Structure.FieldOrder
