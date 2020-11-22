@@ -1,36 +1,41 @@
 #include <string>
 #include <android/log.h>
 #include "native_lib.h"
-#include <string.h>
+#include <cstring>
+
+#ifndef LOG_TAG
 #define LOG_TAG "native_lib"
 #define LOGD(...) __android_log_print(ANDROID_LOG_DEBUG, LOG_TAG, __VA_ARGS__)
 #define LOGI(...) __android_log_print(ANDROID_LOG_INFO, LOG_TAG, __VA_ARGS__)
 #define LOGE(...) __android_log_print(ANDROID_LOG_ERROR, LOG_TAG, __VA_ARGS__)
+#endif
 
+const char *TEST_STR_FROM_NATIVE = "TEST_STR_FROM_NATIVE";
 
-int getInt() {
-    return 12345;
+int testInt(int a, int b) {
+    return a + b;
 }
 
-void getString(char *str, size_t len) {
-    snprintf(str, len,"getString");
+void testStringByVal(const char *str) {
+    LOGI("testStringByVal: %s", str);
 }
 
-const char * getString2() {
-    return "getString2";
+void testStringByRef(char *str, int len) {
+    LOGI("testStringByRef step 1: %s", str);
+    snprintf(str, len, "%s", TEST_STR_FROM_NATIVE);
+    LOGI("testStringByRef step 2: %s", str);
 }
 
-void testUser(User user) {
-    LOGI("user: %s height: %d weight: %.2f \n", user.name, user.height, user.weight);
-    sprintf(user.name, "X");
+void testStructByVal(const MyString *myStr) {
+    LOGI("testStructByVal: str:%s\n", myStr->str);
 }
 
-void testUserPointer(User *user) {
-    LOGI("user: %s height: %d weight: %.2f \n", user->name, user->height, user->weight);
-    sprintf(user->name, "X");
+void testStructByRef(MyString *myStr) {
+    LOGI("testStructByRef step 1: myStr:%s\n", myStr->str);
+    snprintf(myStr->str, myStr->buffLen, "%s", TEST_STR_FROM_NATIVE);
+    LOGI("testStructByRef step 2: myStr:%s\n", myStr->str);
 }
 
-void testUserPointer2(User *user) {
-    user = new User();
-    user->height = 10;
+int testCallBack(int a, int b, SumCallback sum) {
+    return sum(a, b);
 }

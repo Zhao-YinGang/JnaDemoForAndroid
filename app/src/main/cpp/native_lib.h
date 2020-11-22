@@ -5,20 +5,20 @@
 extern "C" {
 #endif
 
-int getInt(void);
+int testInt(int a, int b);
 
-void getString(char *str, size_t len);
+void testStringByVal(const char *str);
+void testStringByRef(char *str, int len);
 
-const char * getString2();
+typedef struct {
+    char *str;
+    int buffLen;
+} MyString;
+void testStructByVal(const MyString *myStr);
+void testStructByRef(MyString *myStr);
 
-struct User {
-    char* name;
-    int height;
-    double weight;
-};
-void testUser(User user);
-void testUserPointer(User *user);
-void testUserPointer2(User *user);
+typedef int (*SumCallback)(int a, int b);
+int testCallBack(int a, int b, SumCallback sum);
 
 #ifdef __cplusplus
 }
