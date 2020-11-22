@@ -39,3 +39,34 @@ void testStructByRef(MyString *myStr) {
 int testCallBack(int a, int b, SumCallback sum) {
     return sum(a, b);
 }
+
+void testUnionByVal(const MyUnion *myUnion, int fieldNum) {
+    switch (fieldNum) {
+        case 1:
+        case 2:
+            LOGI("testUnionByVal: field1:%d\n", myUnion->field1);
+            LOGI("testUnionByVal: field2:%lf\n", myUnion->field2);
+            break;
+        default:
+            LOGI("testUnionByVal: fieldNum[%d] error\n", fieldNum);
+            break;
+    }
+}
+
+void testUnionByRef(MyUnion *myUnion, int fieldNum) {
+    switch (fieldNum) {
+        case 1:
+            LOGI("testUnionByRef step1: field1:%d\n", myUnion->field1);
+            ++myUnion->field1;
+            LOGI("testUnionByRef step2: field1:%d\n", myUnion->field1);
+            break;
+        case 2:
+            LOGI("testUnionByRef step1: field2:%lf\n", myUnion->field2);
+            myUnion->field2 += 1.0;
+            LOGI("testUnionByRef step2: field2:%lf\n", myUnion->field2);
+            break;
+        default:
+            LOGI("testUnionByRef: fieldNum[%d] error\n", fieldNum);
+            break;
+    }
+}

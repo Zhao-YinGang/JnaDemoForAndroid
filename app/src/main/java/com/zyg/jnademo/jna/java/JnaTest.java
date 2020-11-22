@@ -61,5 +61,34 @@ public class JnaTest {
             Native.setCallbackThreadInitializer(sum, new CallbackThreadInitializer(true, false));
             return NativeLib.instance.testCallBack(1, 2, sum) == sum.invoke(1, 2);
         });
+
+        jnaAssert(() -> {
+            MyUnion myUnion = new MyUnion.ByValue();
+            myUnion.setType("field1");
+            myUnion.field1 = 1;
+            NativeLib.instance.testUnionByVal(myUnion, 1);
+            return myUnion.field1 == 1;
+        });
+        jnaAssert(() -> {
+            MyUnion myUnion = new MyUnion.ByValue();
+            myUnion.setType("field2");
+            myUnion.field2 = 2.0;
+            NativeLib.instance.testUnionByVal(myUnion, 2);
+            return myUnion.field2 > 1.999 && myUnion.field2 < 2.001;
+        });
+        jnaAssert(() -> {
+            MyUnion myUnion = new MyUnion.ByReference();
+            myUnion.setType("field1");
+            myUnion.field1 = 1;
+            NativeLib.instance.testUnionByRef(myUnion, 1);
+            return myUnion.field1 == 2;
+        });
+        jnaAssert(() -> {
+            MyUnion myUnion = new MyUnion.ByReference();
+            myUnion.setType("field2");
+            myUnion.field2 = 2.0;
+            NativeLib.instance.testUnionByRef(myUnion, 2);
+            return myUnion.field2 > 2.999 && myUnion.field2 < 3.001;
+        });
     }
 }

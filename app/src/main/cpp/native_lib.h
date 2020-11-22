@@ -20,6 +20,13 @@ void testStructByRef(MyString *myStr);
 typedef int (*SumCallback)(int a, int b);
 int testCallBack(int a, int b, SumCallback sum);
 
+typedef union {
+    int field1;
+    double field2;
+} MyUnion;
+void testUnionByVal(const MyUnion *myUnion, int fieldNum);
+void testUnionByRef(MyUnion *myUnion, int fieldNum);
+
 #ifdef __cplusplus
 }
 #endif

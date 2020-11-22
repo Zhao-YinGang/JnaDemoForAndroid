@@ -59,6 +59,35 @@ private fun doJnaTest() {
         Native.setCallbackThreadInitializer(sum, CallbackThreadInitializer(true, false))
         nativeLib.testCallBack(1, 2, sum) == sum.invoke(1, 2)
     }
+
+    jnaAssert {
+        val myUnion = MyUnion.ByValue()
+        myUnion.setType("field1")
+        myUnion.field1 = 1
+        nativeLib.testUnionByVal(myUnion, 1)
+        myUnion.field1 == 1
+    }
+    jnaAssert {
+        val myUnion = MyUnion.ByValue()
+        myUnion.setType("field2")
+        myUnion.field2 = 2.0
+        nativeLib.testUnionByVal(myUnion, 2)
+        myUnion.field2 > 1.999 && myUnion.field2 < 2.001
+    }
+    jnaAssert {
+        val myUnion = MyUnion.ByReference()
+        myUnion.setType("field1")
+        myUnion.field1 = 1
+        nativeLib.testUnionByRef(myUnion, 1)
+        myUnion.field1 == 2
+    }
+    jnaAssert {
+        val myUnion = MyUnion.ByReference()
+        myUnion.setType("field2")
+        myUnion.field2 = 2.0
+        nativeLib.testUnionByRef(myUnion, 2)
+        myUnion.field2 > 2.999 && myUnion.field2 < 3.001
+    }
 }
 
 

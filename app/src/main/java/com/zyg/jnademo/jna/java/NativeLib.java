@@ -25,4 +25,8 @@ interface NativeLib extends Library {
     void testStructByRef(MyString myStr);
 
     int testCallBack(int a, int b, SumCallback sum);
+
+    void testUnionByVal(MyUnion myUnion, int fieldNum);
+
+    void testUnionByRef(MyUnion myUnion, int fieldNum);
 }

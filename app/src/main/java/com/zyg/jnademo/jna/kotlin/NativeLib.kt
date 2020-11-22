@@ -25,6 +25,9 @@ interface NativeLib : Library {
     fun testStructByRef(myStr: MyString)
 
     fun testCallBack(a: Int, b: Int, sum: SumCallback): Int
+
+    fun testUnionByVal(myUnion: MyUnion, fieldNum: Int)
+    fun testUnionByRef(myUnion: MyUnion, fieldNum: Int)
 }
 
 @FieldOrder("str", "buffLen")
@@ -45,4 +48,16 @@ open class MyString @JvmOverloads constructor(
 
 fun interface SumCallback : Callback {
     fun invoke(a: Int, b: Int): Int
+}
+
+@FieldOrder("field1", "field2")
+open class MyUnion : Union() {
+    @JvmField
+    var field1: Int = 0
+
+    @JvmField
+    var field2: Double = 0.0
+
+    class ByValue : MyUnion(), Structure.ByValue
+    class ByReference : MyUnion(), Structure.ByReference
 }
